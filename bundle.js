@@ -47,14 +47,14 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! /Users/augustenausedaite/Dev/NYCDA/webshop/webshop-app/src/app.js */1);
+	module.exports = __webpack_require__(/*! /Users/augustenausedaite/Dev/NYCDA/webshop/webshop-app/static/js/scripts/frontend.js */1);
 
 
 /***/ },
 /* 1 */
-/*!********************!*\
-  !*** ./src/app.js ***!
-  \********************/
+/*!***************************************!*\
+  !*** ./static/js/scripts/frontend.js ***!
+  \***************************************/
 /***/ function(module, exports) {
 
 	"use strict";
