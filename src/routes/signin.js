@@ -71,6 +71,17 @@ db.sync( {force: true} )
 			})
 		})
 	})
+	bcrypt.hash( '12345678', 8, ( err, hash ) => {
+		if (err) throw err
+			Seller.create( {
+				company_ID: "12345678",
+				company_name: "Sarvas",
+				email: "sarvas@yo.lt",
+				phone: "12345678",
+				address: "ateities g",
+				password: hash
+			} )
+	})
 })
 
 /////////////////////////////////////////////////////////////////////////
@@ -122,7 +133,7 @@ router.post( '/login', bodyParser.urlencoded({extended: true}), ( req,res ) => {
 			})
 		} else {
 			// login as seller
-			Seller.fincOne( {
+			Seller.findOne( {
 				where: {
 					email: req.body.companyEmail
 				}
@@ -138,58 +149,74 @@ router.post( '/login', bodyParser.urlencoded({extended: true}), ( req,res ) => {
 
 		}
 	}
-	
-
-	// else {
-	// 	Buyer.findOne( {
-	// 		where: {
-	// 			email: req.body.email
-	// 		}
-	// 	})
-	// 	.then( buyer => {
-	// 		if ( buyer != null) {
-	// 			bcrypt.compare( req.body.password, buyer.dataValues.password, ( err, result ) => {
-	// 				if( result ) {
-	// 					req.session.user = buyer
-	// 					res.redirect( '/' )
-	// 				} else {
-	// 					res.redirect( '/?message=' + encodeURIComponent( "invalid email or passwors" ))
-	// 				}
-	// 			})
-	// 		}
-	// 	})
-	// }
 })
 
 router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) => {
 	// some data validation
-	if ( req.body.password !== req.body.repeatpassword ) {
+	if ( ( req.body.password !== req.body.repeatpassword ) || ( req.body.companyPassword !== req.body.companyRepeatPassword ) ) {
 		res.redirect ('/register?message=' + encodeURIComponent( 'passwords do not match' ))
-	} else if ( req.body.password.length < 8 ) {
-		res.redirect( '/register?message=' + encodeURIComponent( 'password too short' ))
 	} else {
-		// register user if their email does not exist yet
-		Buyer.count ( {
-			where: { email: req.body.email }
-		} )
-		.then( num => {
-			if ( num > 0 ) {
-				res.redirect('/register?message=' + encodeURIComponent( "email already exists" ))
-			} else {				
-				bcrypt.hash(req.body.password, 8, ( err, hash ) => {
-					if (err) throw err
-						Buyer.create( {
-							firstname: req.body.firstname,
-							lastname: req.body.lastname,
-							email: req.body.email,
-							phone: req.body.phone,
-							address: req.body.address,
-							password: hash
-						} )
-					res.redirect( '/' )
+		// if ( req.body.email ) {
+		// 	// for buyer
+
+		if ( req.body.email ) {
+			if (req.body.password.length < 8) {
+				res.redirect( '/register?message=' + encodeURIComponent( 'password too short' ))
+			} else {
+				// for buyer
+					// register user if their email does not exist yet
+				Buyer.count ( {
+					where: { email: req.body.email }
+				} )
+				.then( num => {
+					if ( num > 0 ) {
+						res.redirect('/register?message=' + encodeURIComponent( "email already exists" ))
+					} else {				
+						bcrypt.hash(req.body.password, 8, ( err, hash ) => {
+							if (err) throw err
+								Buyer.create( {
+									firstname: req.body.firstname,
+									lastname: req.body.lastname,
+									email: req.body.email,
+									phone: req.body.phone,
+									address: req.body.address,
+									password: hash
+								} )
+							res.redirect( '/' )
+						})
+					}
+				})
+			}  
+		} else {
+			if (req.body.companyPassword.length < 8) {
+				res.redirect( '/register?message=' + encodeURIComponent( 'password too short' ))
+			} else {
+			// for seller
+				Seller.count ( {
+					where: { email: req.body.companyEmail }
+				} )
+				.then ( num => {
+					if ( num > 0 ) {
+						res.redirect('/register?message=' + encodeURIComponent( "email already exists" ))
+					} else {
+						bcrypt.hash(req.body.companyPassword, 8, ( err, hash ) => {
+							if (err) throw err
+							console.log('ima here')
+								Seller.create( {
+									// company_ID: "22345678",
+									company_name: req.body.companyName,
+									email: req.body.companyEmail,
+									phone: req.body.companyPhone,
+									address: req.body.companyAddress,
+									password: hash
+								} )
+							res.redirect( '/' )
+						})						
+					}
 				})
 			}
-		})
+
+		}
 	}
 })
 
