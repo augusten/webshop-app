@@ -21,8 +21,11 @@ let db = () => {
 let user_buyer = ( db ) => {
 	return db.define( 'user_buyer', {
 		user_ID: {type: Sequelize.STRING, unique: true},
-		name: {type: Sequelize.STRING, unique: true},
+		firstname: {type: Sequelize.STRING, unique: true},
+		lastname: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
+		phone: {type: Sequelize.STRING, unique: true},
+		address: Sequelize.STRING
 		password: Sequelize.STRING
 	})
 }
@@ -32,6 +35,8 @@ let user_seller = ( db ) => {
 		company_ID: {type: Sequelize.STRING, unique: true},
 		company_name: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
+		phone: {type: Sequelize.STRING, unique: true},
+		address: Sequelize.STRING
 		password: Sequelize.STRING
 	})
 }

@@ -14,7 +14,7 @@ const signin = require( __dirname + '/routes/signin')
 const app = express()
 
 // set up the views engine
-app.set('views', './views')
+app.set('views', __dirname + '/../views')
 app.set('view engine', 'pug')
 
 /////////////////////////////////////////////////////////////////////////
