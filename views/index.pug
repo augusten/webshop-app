@@ -1,18 +1,81 @@
 html
 	header
+		//- link( rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
+		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
+		link(href="/css/main.css" type="text/css" rel="stylesheet")
 	body
-		h1 Hello
-		div
-			form( action='login' method='post')
-				div
-					label Email
-						input( name='email' type='email' required)
-				div
-					label Password
-						input( name='password' type='password' required)
-				div
-					input( type='submit' value='Log me in')
-			div
-				p Don't have an accout yet? It's super easy to 
-					a(href='/register') register
+		#loginBox.container
+			.row
+				.col-md-12
+					.tabbable-panel
+						.tabbable-line
+							ul.nav.nav-tabs
+								li.active
+									a(href='#tab_default_1', data-toggle='tab')
+										| Log in as buyer
+								li
+									a(href='#tab_default_2', data-toggle='tab')
+										| Log in as seller
+							.tab-content
+								#tab_default_1.tab-pane.active
+
+									form( action='login' method='post')
+										div
+											h3 Let's buy!
+												br
+												div
+													label Email
+														input( name='email' type='email' required)
+												div
+													label Password
+														input( name='password' type='password' required)
+												div
+													input( type='submit' value='Log me in')
+
+
+								#tab_default_2.tab-pane
+									form( action='login' method='post')
+										div
+											h3 Let's sell!
+												br
+												div
+													label Company email
+														input( name='companyEmail' type='email' required)
+												div
+													label Password
+														input( name='companyPassword' type='password' required)
+												div
+													input( type='submit' value='Log me in')
+
+
+
+
+		//- .container
+		//- 	.row
+		//- 		.col-md-6
+		//- 			// Nav tabs
+		//- 			.card
+		//- 				ul.nav.nav-tabs(role='tablist')
+		//- 					li.active(role='presentation' class="nav-item")
+		//- 						a(href='#home', aria-controls='home', role='tab', data-toggle='tab' class="nav-link") Log in as buyer
+		//- 					li(role='presentation' class="nav-item")
+		//- 						a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab' class="nav-link") Log in as company
+		//- 				// Tab panes
+		//- 				.tab-content
+		//- 					#login-buyer.tab-pane.active(role='tabpanel')
+		//- 						form( action='login' method='post')
+		//- 							div
+		//- 								label Email
+		//- 									input( name='email' type='email' required)
+		//- 							div
+		//- 								label Password
+		//- 									input( name='password' type='password' required)
+		//- 							div
+		//- 								input( type='submit' value='Log me in')
+		//- 					#login-seller.tab-pane(role='tabpanel')
+		//- 						p This is the second tab
+								
+
+	script( src="/js/jquery-3.1.1.min.js")
+	script( src="/css/bootstrap/js/bootstrap.min.js")
 	script( src="./js/scripts/frontend.js")

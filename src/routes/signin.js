@@ -46,13 +46,13 @@ db.sync( {force: true} )
 	console.log( 'now synced' )
 
 	// Create demo users
-	bcrypt.hash( 'aaaa', 8, ( err, hash ) => {
+	bcrypt.hash( 'aaaaaaaa', 8, ( err, hash ) => {
 		if (err) throw err
 			Buyer.create( {
 				user_ID: '1111',
 				name: "Name",
 				email: "email@original.nl",
-				password: "aaaa"
+				password: hash
 			} )
 		.then( buyer => {
 			buyer.createOrder( {
@@ -88,6 +88,7 @@ router.get('/', ( req, res ) => {
 	} )
 })
 
+// route to register pager ( later to be a pop up window when the frontend is done )
 router.get('/register', ( req, res ) => {
 	res.render( 'register' )
 })
@@ -96,21 +97,96 @@ router.get('/register', ( req, res ) => {
 //----------------------------- POST ROUTES ------------------------------
 
 router.post( '/login', bodyParser.urlencoded({extended: true}), ( req,res ) => {
-	if ( req.body.email.length === 0 || req.body.password.length ===0 ) {
+	if ( (req.body.email === undefined || req.body.password === undefined ) && ( req.body.companyEmail === undefined || req.body.companyPassword === undefined ) )  {
+		// check if valid login information
 		res.redirect( '/message=' + encodeURIComponent( 'forgot to type in password or email' ))
 	} else {
-		Buyer.findOne( {
-			where: {
-				email: req.body.email
-			}
-		})
-		.then( buyer => {
-			if ( buyer != null) {
-				bcrypt.compare( req.body.password, user.dataValues.password, ( err, result ) => {
-					if( result ) {
-						req.session.user = user
+		if ( req.body.email && req.body.password ) {
+			// login as buyer
+			Buyer.findOne( {
+				where: {
+					email: req.body.email
+				}
+			})
+			.then( buyer => {
+				if ( buyer != null) {
+					bcrypt.compare( req.body.password, buyer.dataValues.password, ( err, result ) => {
+						if( result ) {
+							req.session.user = buyer
+							res.redirect( '/' )
+						}
+					})
+				} else {
+					res.redirect( '/?message=' + encodeURIComponent( "invalid email or passwors" ))
+				}
+			})
+		} else {
+			// login as seller
+			Seller.fincOne( {
+				where: {
+					email: req.body.companyEmail
+				}
+			})
+			.then( seller => {
+				bcrypt.compare( req.body.companyPassword, seller.dataValues.password, (err, result ) => {
+					if ( result ) {
+						req.session.user = seller
 						res.redirect( '/' )
 					}
+				})
+			})
+
+		}
+	}
+	
+
+	// else {
+	// 	Buyer.findOne( {
+	// 		where: {
+	// 			email: req.body.email
+	// 		}
+	// 	})
+	// 	.then( buyer => {
+	// 		if ( buyer != null) {
+	// 			bcrypt.compare( req.body.password, buyer.dataValues.password, ( err, result ) => {
+	// 				if( result ) {
+	// 					req.session.user = buyer
+	// 					res.redirect( '/' )
+	// 				} else {
+	// 					res.redirect( '/?message=' + encodeURIComponent( "invalid email or passwors" ))
+	// 				}
+	// 			})
+	// 		}
+	// 	})
+	// }
+})
+
+router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) => {
+	// some data validation
+	if ( req.body.password !== req.body.repeatpassword ) {
+		res.redirect ('/register?message=' + encodeURIComponent( 'passwords do not match' ))
+	} else if ( req.body.password.length < 8 ) {
+		res.redirect( '/register?message=' + encodeURIComponent( 'password too short' ))
+	} else {
+		// register user if their email does not exist yet
+		Buyer.count ( {
+			where: { email: req.body.email }
+		} )
+		.then( num => {
+			if ( num > 0 ) {
+				res.redirect('/register?message=' + encodeURIComponent( "email already exists" ))
+			} else {				
+				bcrypt.hash(req.body.password, 8, ( err, hash ) => {
+					if (err) throw err
+						Buyer.create( {
+							firstname: req.body.firstname,
+							lastname: req.body.lastname,
+							email: req.body.email,
+							phone: req.body.phone,
+							address: req.body.address,
+							password: hash
+						} )
+					res.redirect( '/' )
 				})
 			}
 		})
