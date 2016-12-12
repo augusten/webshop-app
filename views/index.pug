@@ -2,4 +2,17 @@ html
 	header
 	body
 		h1 Hello
+		div
+			form( action='login' method='post')
+				div
+					label Email
+						input( name='email' type='email' required)
+				div
+					label Password
+						input( name='password' type='password' required)
+				div
+					input( type='submit' value='Log me in')
+			div
+				p Don't have an accout yet? It's super easy to 
+					a(href='/register') register
 	script( src="./js/scripts/frontend.js")

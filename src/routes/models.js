@@ -25,7 +25,7 @@ let user_buyer = ( db ) => {
 		lastname: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
-		address: Sequelize.STRING
+		address: Sequelize.STRING,
 		password: Sequelize.STRING
 	})
 }
@@ -36,7 +36,7 @@ let user_seller = ( db ) => {
 		company_name: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
-		address: Sequelize.STRING
+		address: Sequelize.STRING,
 		password: Sequelize.STRING
 	})
 }

@@ -24,5 +24,8 @@
     "sass-loader": "^4.0.2",
     "sequelize": "^3.27.0",
     "webpack": "^1.13.3"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.1"
   }
 }

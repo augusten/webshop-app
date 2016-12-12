@@ -1,0 +1,18 @@
+html
+	header
+	body
+		h1 Register here
+		div
+			form( action='register' method='post')
+					div
+						label Email
+							input( name='email' type='email' required)
+					div
+						label Password
+							input( name='password' type='password' required)
+					div
+						label Confirm password
+							input( name='password' type='password' required)
+					div
+						input( type='submit' value='Register')
+	script( src="./js/scripts/frontend.js")
