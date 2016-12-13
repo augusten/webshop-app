@@ -1,0 +1,22 @@
+html
+	header
+		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
+		link(href="/css/main.css" type="text/css" rel="stylesheet")
+	body
+		.row
+			.col-sm-4.col-lg-4.col-md-4
+				.thumbnail
+					img(src='http://placehold.it/320x150', alt='')
+					.caption
+						h4.pull-right $24.99
+						h4
+							a(href='#') First Product
+						p
+							| See more snippets like this online store item at 
+							a(target='_blank', href='http://www.bootsnipp.com') Bootsnipp - http://bootsnipp.com
+							| .
+					//- .ratings
+					//- 	p.pull-right 15 reviews
+	script( src="/js/jquery-3.1.1.min.js")
+	script( src="/css/bootstrap/js/bootstrap.min.js")
+	script( src="./js/scripts/frontend.js")
