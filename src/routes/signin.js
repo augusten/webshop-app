@@ -38,7 +38,8 @@ let Seller = models.Seller( db )
 let Order = models.Order( db )
 let Product = models.Product( db )
 let Specifics = models.Specifics( db )
-models.Connections( Buyer, Seller, Order, Product )
+let ProductSpecs = models.Productspecs( db )
+models.Connections( Buyer, Seller, Order, Product, ProductSpecs )
 
 // // sync database
 // db.sync( {force: true} )

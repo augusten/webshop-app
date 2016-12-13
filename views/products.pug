@@ -5,27 +5,17 @@ html
 	body
 		.container
 			.row
+				//- form
+					//- form( action="/showproducts" method="get" )
 				.form-group
 					each option in specifications
 						label(for='exampleSelect1') Select #{option.feature}
-						select.form-control
+						select.form-control(id = option.feature )
+							option all
 							each item in option.possibilities
 								option #{item}
-
-						//- label(for='exampleSelect1') Select color
-						//- select#exampleSelect1.form-control
-						//- 	option 1
-						//- 	option 2
-						//- 	option 3
-						//- 	option 4
-						//- 	option 5
-						//- label(for='exampleSelect1') Select material
-						//- select#exampleSelect1.form-control
-						//- 	option 1
-						//- 	option 2
-						//- 	option 3
-						//- 	option 4
-						//- 	option 5
+					div
+						input#btnSearch( type='submit' value='Search')
 			.row
 				.col-sm-4.col-lg-4.col-md-4
 					.thumbnail
