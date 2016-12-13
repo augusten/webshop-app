@@ -40,49 +40,49 @@ let Product = models.Product( db )
 let Specifics = models.Specifics( db )
 models.Connections( Buyer, Seller, Order, Product )
 
-// sync database
-db.sync( {force: true} )
-.then( db => {
-	console.log( 'now synced' )
+// // sync database
+// db.sync( {force: true} )
+// .then( db => {
+// 	console.log( 'now synced' )
 
-	// Create demo users
-	bcrypt.hash( 'aaaaaaaa', 8, ( err, hash ) => {
-		if (err) throw err
-			Buyer.create( {
-				user_ID: '1111',
-				name: "Name",
-				email: "email@original.nl",
-				password: hash
-			} )
-		.then( buyer => {
-			buyer.createOrder( {
-				order_ID: '1234678',
-				order: {
-					red :"#f00",
-					"green":"#0f0",
-					"blue":"#00f",
-					"cyan":"#0ff",
-					"magenta":"#f0f",
-					"yellow":"#ff0",
-					"black":"#000"
-				},
-				user_ID: '1234',
-				paid: 'no'
-			})
-		})
-	})
-	bcrypt.hash( '12345678', 8, ( err, hash ) => {
-		if (err) throw err
-			Seller.create( {
-				company_ID: "12345678",
-				company_name: "Sarvas",
-				email: "sarvas@yo.lt",
-				phone: "12345678",
-				address: "ateities g",
-				password: hash
-			} )
-	})
-})
+// 	// Create demo users
+// 	bcrypt.hash( 'aaaaaaaa', 8, ( err, hash ) => {
+// 		if (err) throw err
+// 		Buyer.create( {
+// 			user_ID: '1111',
+// 			name: "Name",
+// 			email: "email@original.nl",
+// 			password: hash
+// 		} )
+// 		.then( buyer => {
+// 			buyer.createOrder( {
+// 				order_ID: '1234678',
+// 				order: {
+// 					red :"#f00",
+// 					"green":"#0f0",
+// 					"blue":"#00f",
+// 					"cyan":"#0ff",
+// 					"magenta":"#f0f",
+// 					"yellow":"#ff0",
+// 					"black":"#000"
+// 				},
+// 				user_ID: '1234',
+// 				paid: 'no'
+// 			})
+// 		})
+// 	})
+// 	bcrypt.hash( '12345678', 8, ( err, hash ) => {
+// 		if (err) throw err
+// 			Seller.create( {
+// 				company_ID: "12345678",
+// 				company_name: "Sarvas",
+// 				email: "sarvas@yo.lt",
+// 				phone: "12345678",
+// 				address: "ateities g",
+// 				password: hash
+// 			} )
+// 	})
+// })
 
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- GET ROUTES ------------------------------

@@ -40,13 +40,69 @@ let Product = models.Product( db )
 let Specifics = models.Specifics( db )
 models.Connections( Buyer, Seller, Order, Product )
 
+db.sync({ force: true }).then( db => {
+	bcrypt.hash( '12345678', 8, ( err, hash ) => {
+		if (err) throw err
+			Seller.create( {
+				company_ID: "12345678",
+				company_name: "Sarvas",
+				email: "sarvas@yo.lt",
+				phone: "12345678",
+				address: "ateities g",
+				password: hash
+			} ).then( seller => {
+				seller.createProduct({
+					product_ID: '12345678',
+					name: "Childish Gambino",
+					// company_ID: "Sequelize.STRING",
+					// company_name: Sequelize.STRING,
+					specifics: {
+						colors: ["red", "blue"], 
+						materials: ["wood", "plastic", "paper"]
+					}
+				})
+			})
+			Specifics.create( {
+				feature: "colors",
+				possibilities: ["red", "blue", "black", "brown"]
+			})
+			Specifics.create( {
+				feature: "materials",
+				possibilities: ["wood", "plastic", "metal", "amber", "oak", "paper"]
+			})
+		})
+})
+
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- GET ROUTES ------------------------------
 
 router.get( '/products', ( req, res ) => {
-	res.render('products', {
-		user: req.session.user
+	// Product.findAll({
+
+	// })
+	// .then( products => {
+
+	// })
+	let specifications = []
+	Specifics.findAll()
+	.then( specs => {
+		for (var i = specs.length - 1; i >= 0; i--) {
+			specifications.push( specs[i].dataValues )
+		}
+		return specifications // this may not be the most efficient way?? 
 	})
+	.then( specArray => {
+		console.log( specArray )
+		res.render( "products", {
+			user: req.session.user,
+			specifications: specArray
+		})
+	})
+		// console.log( specs )
+		// res.render( "products", {
+		// 	user: req.session.user,
+		// 	specifications: specs
+		// })
 })
 
 /////////////////////////////////////////////////////////////////////////
