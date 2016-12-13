@@ -1,0 +1,19 @@
+html
+	header
+		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
+		link(href="/css/main.css" type="text/css" rel="stylesheet")
+	body
+		.container
+			.row
+				h2 #{product.name}
+				p Available in these colors:
+					ul
+					each color in specifics.colors
+						li #{color}
+				p Can be made with these materials
+					ul
+					each material in specifics.materials
+						li #{material}
+	script( src="/js/jquery-3.1.1.min.js")
+	script( src="/css/bootstrap/js/bootstrap.min.js")
+	script( src="./js/scripts/frontend.js")

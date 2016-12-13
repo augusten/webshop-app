@@ -10,12 +10,21 @@ $(document).ready ( function() {
 			url: '/showproducts',
 			data: choices,
 			success: function ( data ) {
-				// for (var i = data.length; i > 0; i--) {
-				// 	console.log(data[i-1])
-				// 	// need to upgrade to show user name, not number
-				// 	$( "<p>" + data[i-1].comText + "</p>" + "<p><i> - Comment by user #" + data[i-1].userId + "</p></i>" ).insertAfter( '#comment-list' )
-				// }
-				console.log( data )
+				$(".productData").empty()
+				for (var i = data.length - 1; i >= 0; i--) {
+					// $('#aftersearch').fadeIn("slow")
+					console.log( data[i].id ) 
+					$("<div class='col-sm-4 col-lg-4 col-md-4 productData'> \
+						<div class='thumbnail'> \
+							<a href='/product?id=" + data[i].id + "'><img src='http://placehold.it/320x150', alt=''></img></a> \
+							<caption> \
+								<h4 class='pull-right'>" + data[i].price + "</h4> \
+								<h4><a>" + data[i].name + "</a></h4> \
+								<p><See more></p> \
+							</caption> \
+						</div> \
+					</div>").hide().fadeIn( 500 ).insertAfter( '#aftersearch' )
+				}
 			}
 		})
 	})

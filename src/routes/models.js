@@ -52,7 +52,7 @@ let order = ( db ) => {
 
 let product = ( db ) => {
 	return db.define( 'product', {
-		product_ID: {type: Sequelize.STRING, unique: true},
+		price: Sequelize.STRING,
 		name: Sequelize.STRING
 		// company_ID: Sequelize.STRING,
 		// company_name: Sequelize.STRING,

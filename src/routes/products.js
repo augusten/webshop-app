@@ -92,8 +92,28 @@ router.get ( '/showproducts', ( req, res ) => {
 	})
 })
 
+router.get( '/product', ( req, res ) => {
+	// console.log( req.query )
+	Product.findOne({
+		where: { id: req.query.id }
+	}).then( product => {
+		Productspec.findOne({
+			where: { productId: req.query.id}
+		}).then( specifics => {
+			res.render( 'product', {
+				user: req.session.user,
+				product: product,
+				specifics: specifics
+			})
+		})
+	})
+})
+
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- POST ROUTES -----------------------------
+
+/////////////////////////////////////////////////////////////////////////
+//----------------------------- EXPORT ROUTES ---------------------------
 
 module.exports = router
 
@@ -111,7 +131,7 @@ db.sync({ force: true }).then( db => {
 				password: hash
 			} ).then( seller => {
 				seller.createProduct( { 
-					product_ID: '12345678',
+					price: "2400.00",
 					name: "Childish Gambino",
 				}).then( product => {
 					// console.log( product )
@@ -132,8 +152,8 @@ db.sync({ force: true }).then( db => {
 				address: "geliu g",
 				password: hash
 			} ).then( seller => {
-				seller.createProduct( { 
-					product_ID: '9753',
+				seller.createProduct( {
+					price: "24.99",
 					name: "Product #smth",
 				}).then( product => {
 					// console.log( product )
@@ -156,7 +176,7 @@ db.sync({ force: true }).then( db => {
 				password: hash
 			} ).then( seller => {
 				seller.createProduct( { 
-					product_ID: '135798642',
+					price: "100.00",
 					name: "#smth",
 				}).then( product => {
 					// console.log( product )
@@ -179,7 +199,7 @@ db.sync({ force: true }).then( db => {
 				password: hash
 			} ).then( seller => {
 				seller.createProduct( { 
-					product_ID: '1111111',
+					price: "1234.89",
 					name: "Train",
 				}).then( product => {
 					// console.log( product )
@@ -202,7 +222,7 @@ db.sync({ force: true }).then( db => {
 				password: hash
 			} ).then( seller => {
 				seller.createProduct( { 
-					product_ID: '000000001',
+					price: "6767.00",
 					name: "Train",
 				}).then( product => {
 					// console.log( product )
