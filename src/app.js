@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const signin = require( __dirname + '/routes/signin')
 const products = require( __dirname + '/routes/products')
 const orders = require( __dirname + '/routes/orders')
+const profile = require( __dirname + '/routes/profile')
 
 // load database and express objects 
 const app = express()
@@ -41,6 +42,7 @@ app.use(
 app.use('/', signin)
 app.use('/', products)
 app.use('/', orders)
+app.use('/', profile)
 
 /////////////////////////////////////////////////////////////////////////
 //---------------------------- START SERVER -----------------------------

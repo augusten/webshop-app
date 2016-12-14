@@ -10,77 +10,40 @@ html
 						thead
 							tr
 								th Product
+								th Qualities
 								th Quantity
 								th.text-center Price
 								th.text-center Total
 								th  
 						tbody
-							tr
-								td.col-sm-8.col-md-6
-									.media
-										a.thumbnail.pull-left(href='#')
-											img.media-object(src='http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png', style='width: 72px; height: 72px;')
-										.media-body
-											h4.media-heading
-												a(href='#') Product name
-											h5.media-heading
-												| by 
-												a(href='#') Brand name
-											span Status: 
-											span.text-success
-												strong In Stock
-								td.col-sm-1.col-md-1(style='text-align: center')
-									input#exampleInputEmail1.form-control(type='email', value='3')
-								td.col-sm-1.col-md-1.text-center
-									strong $4.87
-								td.col-sm-1.col-md-1.text-center
-									strong $14.61
-								td.col-sm-1.col-md-1
-									button.btn.btn-danger(type='button')
-										span.glyphicon.glyphicon-remove
-										|  Remove
-							tr
-								td.col-md-6
-									.media
-										a.thumbnail.pull-left(href='#')
-											img.media-object(src='http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png', style='width: 72px; height: 72px;')
-										.media-body
-											h4.media-heading
-												a(href='#') Product name
-											h5.media-heading
-												| by 
-												a(href='#') Brand name
-											span Status: 
-											span.text-warning
-												strong Leaves warehouse in 2 - 3 weeks
-								td.col-md-1(style='text-align: center')
-									input#exampleInputEmail1.form-control(type='email', value='2')
-								td.col-md-1.text-center
-									strong $4.99
-								td.col-md-1.text-center
-									strong $9.98
-								td.col-md-1
-									button.btn.btn-danger(type='button')
-										span.glyphicon.glyphicon-remove
-										|  Remove
-							tr
-								td    
-								td    
-								td    
-								td
-									h5 Subtotal
-								td.text-right
-									h5
-										strong $24.59
-							tr
-								td    
-								td    
-								td    
-								td
-									h5 Estimated shipping
-								td.text-right
-									h5
-										strong $6.94
+							- var sum = 0
+							each item in orders
+								- sum = sum + parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)
+								tr(id="entry"+item.id)
+									td.col-sm-8.col-md-6
+										.media
+											a.thumbnail.pull-left(href='#')
+												img.media-object(src='http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png', style='width: 72px; height: 72px;')
+											.media-body
+												h4.media-heading
+													a(href='#') #{JSON.parse(item.dataValues.order.product).name}
+									td.col-sm-1.col-md-1.text-center
+										p #{JSON.parse(item.dataValues.order.productSpecs).color}
+										p #{JSON.parse(item.dataValues.order.productSpecs).material}
+									td.col-sm-1.col-md-1.text-center
+										p #{item.quantity}
+									td.col-sm-1.col-md-1.text-center
+										strong #{JSON.parse(item.dataValues.order.product).price}
+									td.col-sm-1.col-md-1.text-center
+										- var price = (parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)).toFixed(2)
+										//- var sum += parseFloat(JSON.parse(item.dataValues.order.product).price)
+										strong #{ price }
+									td.col-sm-1.col-md-1
+
+										a.btn.deleteBtn(id=item.id) Remove 
+										//- (href='/delete?id='+item.id)
+										//- form( method='post' action='delete?id='+item.id )
+										//- 	input( type='button' value ='Remove' )
 							tr
 								td    
 								td    
@@ -89,7 +52,7 @@ html
 									h3 Total
 								td.text-right
 									h3
-										strong $31.53
+										strong #{ sum.toFixed(2) }
 							tr
 								td    
 								td    

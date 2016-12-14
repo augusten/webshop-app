@@ -49,4 +49,34 @@ $(document).ready ( function() {
 			}
 		})
 	})
+	$('.deleteBtn').click( function () {
+		 
+		var choices = {
+			id: this.id
+		}
+		// console.log( choices )
+		// var choices = {
+		// 	color: $('#selColor :selected').val(),
+		// 	material: $('#selMaterial :selected').val(),
+		// 	quantity: $('#quantity').val(),
+		// 	paid: "no",
+		// 	price: $('h4').text().substring(8, $('h4').text().length),
+		// 	name: $('h2').text()
+		// }
+
+		// send ajax request to do the search
+		$.ajax( {
+			type: 'get',
+			url: '/delete',
+			data: {id: this.id},
+			success: function ( data ) {
+				console.log( Object.keys(data))
+				console.log( data.deletedOrderId )
+					
+				
+				$("#"+data.deletedOrderId).remove()
+				
+			}
+		})
+	})
 })

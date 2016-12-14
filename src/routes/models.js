@@ -20,7 +20,7 @@ let db = () => {
 // Define the models of the database
 let user_buyer = ( db ) => {
 	return db.define( 'userbuyer', {
-		user_ID: {type: Sequelize.STRING, unique: true},
+		// user_ID: {type: Sequelize.STRING, unique: true},
 		firstname: {type: Sequelize.STRING, unique: true},
 		lastname: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},

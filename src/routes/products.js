@@ -126,6 +126,35 @@ module.exports = router
 
 // SYNC DB FOR DEVELOPMENT
 db.sync({ force: true }).then( db => {
+	bcrypt.hash( '78787878', 8, ( err, hash ) => {
+		if (err) throw err
+		Buyer.create({
+			// user_ID: {type: Sequelize.STRING, unique: true},
+			firstname: "guga",
+			lastname: 'no',
+			email: 'guga@hello.lt',
+			phone: '0639353219',
+			address: 'ateities gatve',
+			password: hash
+		}).then ( buyer => {
+			buyer.createOrder({
+				order: {
+					product: JSON.stringify( { price: "26.79", name: "this is my product"} ),
+					productSpecs: JSON.stringify( { color: "red", material: "cotton"} )
+				},
+				quantity: 2,
+				paid: "no"
+			})
+			buyer.createOrder({
+				order: {
+					product: JSON.stringify( { price: "59.00", name: "#68"} ),
+					productSpecs: JSON.stringify( { color: "grey", material: "nothing"} )
+				},
+				quantity: 2,
+				paid: "no"
+			})
+		})
+	})
 	bcrypt.hash( '12345678', 8, ( err, hash ) => {
 		if (err) throw err
 			Seller.create( {
