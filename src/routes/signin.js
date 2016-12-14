@@ -111,7 +111,7 @@ router.get('/register', ( req, res ) => {
 router.post( '/login', bodyParser.urlencoded({extended: true}), ( req,res ) => {
 	if ( (req.body.email === undefined || req.body.password === undefined ) && ( req.body.companyEmail === undefined || req.body.companyPassword === undefined ) )  {
 		// check if valid login information
-		res.redirect( '/message=' + encodeURIComponent( 'forgot to type in password or email' ))
+		res.redirect( '/?message=' + encodeURIComponent( 'forgot to type in password or email' ))
 	} else {
 		if ( req.body.email && req.body.password ) {
 			// login as buyer

@@ -5,15 +5,33 @@ html
 	body
 		.container
 			.row
-				h2 #{product.name}
-				p Available in these colors:
-					ul
-					each color in specifics.colors
-						li #{color}
-				p Can be made with these materials
-					ul
-					each material in specifics.materials
-						li #{material}
+				
+				//- .form-group
+				//- 	each option in specifics
+				//- 		label(for='exampleSelect1') Select #{option.feature}
+				//- 		select.form-control(id = option.feature )
+				//- 			option all
+				//- 			each item in option.possibilities
+				//- 				option #{item}
+				.col-md-6
+				.col-md-6
+					h2.center#productName #{product.name}
+					.col-md-5
+						.row.form-group
+							label Select the color
+							select.form-control( id = 'selColor' )
+								each color in specifics.colors
+									option #{color}
+							label Select the material
+							select.form-control( id = 'selMaterial' )
+								each material in specifics.materials
+									option #{material}
+							label Type in the quantity
+							input( type='text' class="form-control" id="quantity" required)
+							center
+								h4 Price: €#{product.price}
+							center
+								input#btnAdd( type='submit' value='Buy the item!')
 	script( src="/js/jquery-3.1.1.min.js")
 	script( src="/css/bootstrap/js/bootstrap.min.js")
 	script( src="./js/scripts/frontend.js")

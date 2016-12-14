@@ -109,6 +109,12 @@ router.get( '/product', ( req, res ) => {
 	})
 })
 
+router.get( '/thanks', ( req, res ) => {
+	res.render( 'thanks', {
+		user: req.session.user
+	})
+})
+
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- POST ROUTES -----------------------------
 
@@ -242,4 +248,12 @@ db.sync({ force: true }).then( db => {
 		feature: "materials",
 		possibilities: ["wood", "plastic", "metal", "amber", "oak", "paper"]
 	})
+
+	// Order.create({
+	// 	// order_ID: {type: Sequelize.STRING, unique: true},
+	// 	order: Sequelize.JSON,
+	// 	user_ID: Sequelize.STRING,
+	// 	quantity: Sequelize.INTEGER,
+	// 	paid: Sequelize.STRING
+	// })
 })

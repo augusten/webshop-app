@@ -28,4 +28,25 @@ $(document).ready ( function() {
 			}
 		})
 	})
+	$('#btnAdd').click( function () {
+
+		var choices = {
+			color: $('#selColor :selected').val(),
+			material: $('#selMaterial :selected').val(),
+			quantity: $('#quantity').val(),
+			paid: "no",
+			price: $('h4').text().substring(8, $('h4').text().length),
+			name: $('h2').text()
+		}
+
+		// send ajax request to do the search
+		$.ajax( {
+			type: 'get',
+			url: '/addtocart',
+			data: choices,
+			success: function ( data ) {
+				window.location.href = "thanks"
+			}
+		})
+	})
 })

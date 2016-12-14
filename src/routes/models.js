@@ -43,16 +43,17 @@ let user_seller = ( db ) => {
 
 let order = ( db ) => {
 	return db.define( 'order', {
-		order_ID: {type: Sequelize.STRING, unique: true},
+		// order_ID: {type: Sequelize.STRING, unique: true},
 		order: Sequelize.JSON,
-		user_ID: Sequelize.STRING,
+		// user_ID: Sequelize.STRING,
+		quantity: Sequelize.INTEGER,
 		paid: Sequelize.STRING
 	})
 }
 
 let product = ( db ) => {
 	return db.define( 'product', {
-		price: Sequelize.STRING,
+		price: Sequelize.FLOAT,
 		name: Sequelize.STRING
 		// company_ID: Sequelize.STRING,
 		// company_name: Sequelize.STRING,
