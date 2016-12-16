@@ -20,24 +20,26 @@ let db = () => {
 // Define the models of the database
 let buyer = ( db ) => {
 	return db.define( 'buyer', {
-		// user_ID: {type: Sequelize.STRING, unique: true},
+		// buyer_ID: {type: Sequelize.STRING, unique: true},
 		firstname: {type: Sequelize.STRING, unique: true},
 		lastname: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
 		address: Sequelize.STRING,
 		password: Sequelize.STRING
+		// role: Sequelize.STRING
 	})
 }
 
 let seller = ( db ) => {
 	return db.define( 'seller', {
-		company_ID: {type: Sequelize.STRING, unique: true},
+		// company_ID: {type: Sequelize.STRING, unique: true},
 		company_name: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
 		address: Sequelize.STRING,
 		password: Sequelize.STRING
+		// role: Sequelize.STRING
 	})
 }
 
@@ -55,13 +57,6 @@ let product = ( db ) => {
 	return db.define( 'product', {
 		price: Sequelize.FLOAT,
 		name: Sequelize.STRING
-		// company_ID: Sequelize.STRING,
-		// company_name: Sequelize.STRING,
-		// specifics: Sequelize.JSON
-		// {
-		// 	colors: Sequelize.STRING,
-		// 	materials: Sequelize.STRING
-		// } // Sequelize.JSON
 	})
 }
 

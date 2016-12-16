@@ -136,12 +136,14 @@ router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) 
 						bcrypt.hash(req.body.password, 8, ( err, hash ) => {
 							if (err) throw err
 								Buyer.create( {
+									// create unique ID from numbers -> grab the previous row (id-1) and their unique ID
 									firstname: req.body.firstname,
 									lastname: req.body.lastname,
 									email: req.body.email,
 									phone: req.body.phone,
 									address: req.body.address,
 									password: hash
+									// role: "user"
 								} )
 							res.redirect( '/' )
 						})
@@ -170,6 +172,7 @@ router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) 
 									phone: req.body.companyPhone,
 									address: req.body.companyAddress,
 									password: hash
+									// role: "admin"
 								} )
 							res.redirect( '/' )
 						})						

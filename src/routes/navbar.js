@@ -28,11 +28,15 @@ app.use(
 
 // for now render empty pages
 router.get( '/companies', ( req, res ) => {
-	res.render( 'partners' )
+	res.render( 'partners', {
+		user: req.session.user
+	} )
 })
 
 router.get( '/about', ( req, res ) => {
-	res.render( 'partners' )
+	res.render( 'partners', {
+		user: req.session.user
+	})
 })
 
 module.exports = router

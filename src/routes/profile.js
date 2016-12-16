@@ -48,6 +48,9 @@ router.get( '/goprofile', ( req, res ) => {
 	if ( !req.session.user ) {
 		res.render( 'wrong' )
 	} else {
+
+		// find if role is user or admmin
+
 		// console.log( req.session.user )
 		Buyer.findOne({
 			where: { id: req.session.user.id }
@@ -95,10 +98,6 @@ router.get( '/delete', bodyParser.urlencoded({extended: true}), ( req, res ) => 
 			})
 		})
 	})
-	// res.send( {
-	// 	user: req.session.user,
-	// 	orders:
-	// } )
 })
 
 /////////////////////////////////////////////////////////////////////////

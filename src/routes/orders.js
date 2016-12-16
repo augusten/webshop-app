@@ -46,6 +46,8 @@ models.Connections( Buyer, Seller, Order, Product, Productspec )
 
 router.get( '/profile', ( req, res ) => {
 
+	// find if role is user or admmin
+	
 	res.render( 'profile', {
 		user: req.session.user
 	})
