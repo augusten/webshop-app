@@ -1,70 +1,85 @@
-html
-	header
-		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
-		link(href="/css/main.css" type="text/css" rel="stylesheet")
-	body
-		h1 Register here
-		#registerBox.container
-			.row
-				.col-md-12
-					.tabbable-panel
-						.tabbable-line
+include incl/header.pug
+body
+	include incl/navbar.pug
+	#registerBox.container
+		.row
+			.col-md-2
+			.col-md-8
+				.tabbable-panel
+					.tabbable-line
+						center
 							ul.nav.nav-tabs
 								li.active
-									a(href='#tab_default_1', data-toggle='tab')
+									a.register(href='#tab_default_1', data-toggle='tab')
 										| Register in as buyer
 								li
-									a(href='#tab_default_2', data-toggle='tab')
+									a.register(href='#tab_default_2', data-toggle='tab')
 										| Register in as seller
-							.tab-content
-								#tab_default_1.tab-pane.active
+						.tab-content
+							#tab_default_1.tab-pane.active
 
+								form#regForm( action='register' method='post')
+										div.form-group.row
+											label.co-md-2.col-form-label Firstname
+											//- .col-xs-4
+											input.form-control( name='firstname' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Lastname
+											input.form-control( name='lastname' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Email
+											input.form-control( name='email' type='email' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Address
+											input.form-control( name='address' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Phone number
+											input.form-control( name='phone' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Password ( at least 8 characters)
+											input.form-control( name='password' type='password' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Confirm password
+											input.form-control( name='repeatpassword' type='password' required)
+											br
+										div.form-group.row
+											center
+												input.btn.btnRegister( type='submit' value='Register')
+							#tab_default_2.tab-pane
 									form( action='register' method='post')
-											div
-												label Firstname
-													input( name='firstname' type='text' required)
-											div
-												label Lastname
-													input( name='lastname' type='text' required)
-											div
-												label Email
-													input( name='email' type='email' required)
-											div
-												label Address
-													input( name='address' type='text' required)
-											div
-												label Phone number
-													input( name='phone' type='text' required)
-											div
-												label Password ( at least 8 characters)
-													input( name='password' type='password' required)
-											div
-												label Confirm password
-													input( name='repeatpassword' type='password' required)
-											div
-												input( type='submit' value='Register')
-								#tab_default_2.tab-pane
-										form( action='register' method='post')
-											div
-												label Company name
-													input( name='companyName' type='text' required)
-											div
-												label Email
-													input( name='companyEmail' type='email' required)
-											div
-												label Address
-													input( name='companyAddress' type='text' required)
-											div
-												label Phone number
-													input( name='companyPhone' type='text' required)
-											div
-												label Password ( at least 8 characters)
-													input( name='companyPassword' type='password' required)
-											div
-												label Confirm password
-													input( name='companyRepeatPassword' type='password' required)
-											div
-												input( type='submit' value='Register')
+										div.form-group.row
+											label.co-md-2.col-form-label Company name
+											input.form-control( name='companyName' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Email
+											input.form-control( name='companyEmail' type='email' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Address
+											input.form-control( name='companyAddress' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Phone number
+											input.form-control( name='companyPhone' type='text' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Password ( at least 8 characters)
+											input.form-control( name='companyPassword' type='password' required)
+											br
+										div.form-group.row
+											label.co-md-2.col-form-label Confirm password
+											input.form-control( name='companyRepeatPassword' type='password' required)
+											br
+										div.form-group.row
+											center
+												input.btn.btnRegister( type='submit' value='Register')
 
 
 	script( src="/js/jquery-3.1.1.min.js")

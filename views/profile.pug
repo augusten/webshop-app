@@ -1,70 +1,66 @@
-html
-	header
-		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
-		link(href="/css/main.css" type="text/css" rel="stylesheet")
-	body
-		.container
-			.row
-				.col-sm-12.col-md-10.col-md-offset-1
-					table.table.table-hover
-						thead
-							tr
-								th Product
-								th Qualities
-								th Quantity
-								th.text-center Price
-								th.text-center Total
-								th  
-						tbody
-							- var sum = 0
-							each item in orders
-								- sum = sum + parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)
-								tr(id="entry"+item.id)
-									td.col-sm-8.col-md-6
-										.media
-											a.thumbnail.pull-left(href='#')
-												img.media-object(src='http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png', style='width: 72px; height: 72px;')
-											.media-body
-												h4.media-heading
-													a(href='#') #{JSON.parse(item.dataValues.order.product).name}
-									td.col-sm-1.col-md-1.text-center
-										p #{JSON.parse(item.dataValues.order.productSpecs).color}
-										p #{JSON.parse(item.dataValues.order.productSpecs).material}
-									td.col-sm-1.col-md-1.text-center
-										p #{item.quantity}
-									td.col-sm-1.col-md-1.text-center
-										strong #{JSON.parse(item.dataValues.order.product).price}
-									td.col-sm-1.col-md-1.text-center
-										- var price = (parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)).toFixed(2)
-										//- var sum += parseFloat(JSON.parse(item.dataValues.order.product).price)
-										strong #{ price }
-									td.col-sm-1.col-md-1
+include incl/header.pug
+body
+	include incl/navbar.pug
+	.container
+		.row
+			.col-sm-12.col-md-10.col-md-offset-1
+				table.table.table-hover
+					thead
+						tr
+							th Product
+							th Qualities
+							th Quantity
+							th.text-center Price
+							th.text-center Total
+							th  
+					tbody
+						- var sum = 0
+						each item in orders
+							- sum = sum + parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)
+							tr(id="entry"+item.id)
+								td.col-sm-8.col-md-6
+									.media
+										a.thumbnail.pull-left(href='#')
+											img.media-object(src='http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png', style='width: 72px; height: 72px;')
+										.media-body
+											h4.media-heading
+												a(href='#') #{JSON.parse(item.dataValues.order.product).name}
+								td.col-sm-1.col-md-1.text-center
+									p #{JSON.parse(item.dataValues.order.productSpecs).color}
+									p #{JSON.parse(item.dataValues.order.productSpecs).material}
+								td.col-sm-1.col-md-1.text-center
+									p #{item.quantity}
+								td.col-sm-1.col-md-1.text-center
+									strong #{JSON.parse(item.dataValues.order.product).price}
+								td.col-sm-1.col-md-1.text-center
+									- var price = (parseFloat(JSON.parse(item.dataValues.order.product).price) * parseFloat(item.quantity)).toFixed(2)
+									//- var sum += parseFloat(JSON.parse(item.dataValues.order.product).price)
+									strong #{ price }
+								td.col-sm-1.col-md-1
 
-										a.btn.deleteBtn(id=item.id) Remove 
-										//- (href='/delete?id='+item.id)
-										//- form( method='post' action='delete?id='+item.id )
-										//- 	input( type='button' value ='Remove' )
-							tr
-								td    
-								td    
-								td    
-								td
-									h3 Total
-								td.text-right
-									h3
-										strong #{ sum.toFixed(2) }
-							tr
-								td    
-								td    
-								td    
-								td
-									button.btn.btn-default(type='button')
-										span.glyphicon.glyphicon-shopping-cart
-										|  Continue Shopping
-								td
-									button.btn.btn-success(type='button')
-										| Checkout 
-										span.glyphicon.glyphicon-play
+									a.btn.deleteBtn(id=item.id) Remove 
+									//- (href='/delete?id='+item.id)
+									//- form( method='post' action='delete?id='+item.id )
+									//- 	input( type='button' value ='Remove' )
+						tr
+							td    
+							td    
+							td    
+							td
+								h3 Total
+							td.text-right
+								h3
+									strong #{ sum.toFixed(2) }
+						tr
+							td    
+							td    
+							td    
+							td
+								a.btn.btn-default(href='/products' type='submit' ) Continue Shopping
+							td
+								button.btn.btn-success(type='button')
+									| Checkout 
+									span.glyphicon.glyphicon-play
 
 
 	script( src="/js/jquery-3.1.1.min.js")

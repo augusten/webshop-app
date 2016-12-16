@@ -44,11 +44,6 @@ models.Connections( Buyer, Seller, Order, Product, ProductSpecs )
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- GET ROUTES ------------------------------
 
-// test route
-router.get('/ping', ( req, res ) => {
-	res.send( 'pong' )
-})
-
 // route to index page
 router.get('/', ( req, res ) => {
 	res.render( 'index', {
@@ -59,6 +54,15 @@ router.get('/', ( req, res ) => {
 // route to register pager ( later to be a pop up window when the frontend is done )
 router.get('/register', ( req, res ) => {
 	res.render( 'register' )
+})
+
+router.get('/logout', (req, res) => {
+	req.session.destroy( error => {
+		if (error) {
+			throw error;
+		}
+		res.redirect('/?message=' + encodeURIComponent("logged out"))
+	})
 })
 
 /////////////////////////////////////////////////////////////////////////

@@ -52,22 +52,30 @@ router.get( '/profile', ( req, res ) => {
 } )
 
 router.get( '/addtocart', ( req, res ) => {
-	Product.findOne({
-		where: { name: req.query.name }
-			// price: parseFloat( req.query.price ),
-			// name: req.query.name
-		}).then( product => {
-			Order.create({
-				order: {
-					product: JSON.stringify( product ),
-					productSpecs: JSON.stringify( { "color": req.query.color, "material": req.query.material } )
-				},
-				quantity: req.query.quantity,
-				paid: req.query.paid
-			}).then( order => {
-				res.send( order )
+	if ( !req.session.user ) {
+		res.send( 'wrong' )
+	} else {
+		Product.findOne({
+			where: { name: req.query.name }
+				// price: parseFloat( req.query.price ),
+				// name: req.query.name
+			}).then( product => {
+				Order.create({
+					order: {
+						product: JSON.stringify( product ),
+						productSpecs: JSON.stringify( { "color": req.query.color, "material": req.query.material } )
+					},
+					quantity: req.query.quantity,
+					paid: req.query.paid
+				}).then( order => {
+					res.send( order )
+				})
 			})
-		})
+		}
+})
+
+router.get('/wrong', (req, res) => {
+	res.render ( 'wrong' )
 })
 
 /////////////////////////////////////////////////////////////////////////

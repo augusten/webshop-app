@@ -1,37 +1,35 @@
-html
-	header
-		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
-		link(href="/css/main.css" type="text/css" rel="stylesheet")
-	body
-		.container
-			.row
-				
-				//- .form-group
-				//- 	each option in specifics
-				//- 		label(for='exampleSelect1') Select #{option.feature}
-				//- 		select.form-control(id = option.feature )
-				//- 			option all
-				//- 			each item in option.possibilities
-				//- 				option #{item}
-				.col-md-6
-				.col-md-6
-					h2.center#productName #{product.name}
-					.col-md-5
-						.row.form-group
-							label Select the color
-							select.form-control( id = 'selColor' )
-								each color in specifics.colors
-									option #{color}
-							label Select the material
-							select.form-control( id = 'selMaterial')
-								each material in specifics.materials
-									option #{material}
-							label Type in the quantity
-							input( type='text' class="form-control" id="quantity" required)
-							center
-								h4 Price: €#{product.price}
-							center
-								input#btnAdd( type='submit' value='Buy the item!')
+include incl/header.pug
+body
+	include incl/navbar.pug
+	.container
+		.row
+			
+			//- .form-group
+			//- 	each option in specifics
+			//- 		label(for='exampleSelect1') Select #{option.feature}
+			//- 		select.form-control(id = option.feature )
+			//- 			option all
+			//- 			each item in option.possibilities
+			//- 				option #{item}
+			.col-md-6
+			.col-md-6
+				h2.center#productName #{product.name}
+				.col-md-5
+					.row.form-group
+						label Select the color
+						select.form-control( id = 'selColor' )
+							each color in specifics.colors
+								option #{color}
+						label Select the material
+						select.form-control( id = 'selMaterial')
+							each material in specifics.materials
+								option #{material}
+						label Type in the quantity
+						input( type='text' class="form-control" id="quantity" required)
+						center
+							h4 Price: €#{product.price}
+						center
+							input.btn#btnAdd( type='submit' value='Buy the item!')
 	script( src="/js/jquery-3.1.1.min.js")
 	script( src="/css/bootstrap/js/bootstrap.min.js")
 	script( src="./js/scripts/frontend.js")
