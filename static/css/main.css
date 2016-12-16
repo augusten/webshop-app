@@ -217,7 +217,7 @@ body{
     border-color: #5F9EA0;
 }
 
-#btnSearch, .btnRegister, #btnAdd {
+#btnSearch, .btnRegister, #btnAdd, #prof, #prods {
     color: #fff;
     background-color: #5F9EA0;
     border-color: #5F9EA0;

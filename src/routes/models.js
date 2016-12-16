@@ -18,8 +18,8 @@ let db = () => {
 }
 
 // Define the models of the database
-let user_buyer = ( db ) => {
-	return db.define( 'userbuyer', {
+let buyer = ( db ) => {
+	return db.define( 'buyer', {
 		// user_ID: {type: Sequelize.STRING, unique: true},
 		firstname: {type: Sequelize.STRING, unique: true},
 		lastname: {type: Sequelize.STRING, unique: true},
@@ -30,8 +30,8 @@ let user_buyer = ( db ) => {
 	})
 }
 
-let user_seller = ( db ) => {
-	return db.define( 'userseller', {
+let seller = ( db ) => {
+	return db.define( 'seller', {
 		company_ID: {type: Sequelize.STRING, unique: true},
 		company_name: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
@@ -46,7 +46,7 @@ let order = ( db ) => {
 		// order_ID: {type: Sequelize.STRING, unique: true},
 		order: Sequelize.JSON,
 		// user_ID: Sequelize.STRING,
-		quantity: Sequelize.INTEGER,
+		quantity: Sequelize.STRING,
 		paid: Sequelize.STRING
 	})
 }
@@ -97,8 +97,8 @@ let connections = ( buyer, seller, order, product, specs ) => {
 
 module.exports = {
 	DB: db,
-	Buyer: user_buyer,
-	Seller: user_seller,
+	Buyer: buyer,
+	Seller: seller,
 	Order: order,
 	Product: product,
 	Specifics: specifics, 

@@ -54,7 +54,7 @@ router.get( '/goprofile', ( req, res ) => {
 		}).then( buyer => {
 			// console.log( buyer.dataValues )
 			Order.findAll({
-				where: {userbuyerId: req.session.user.id}
+				where: {buyerId: req.session.user.id}
 			}).then( orders => {
 				// console.log( JSON.parse(orders[0].dataValues.order.product).name )
 				res.render( 'profile', {
@@ -78,13 +78,13 @@ router.get( '/delete', bodyParser.urlencoded({extended: true}), ( req, res ) => 
 	}).then( order => {
 		console.log( order )
 		Buyer.findOne({
-			where: { id: order.dataValues.userbuyerId }
+			where: { id: order.dataValues.buyerId }
 		}).then( buyer => {
 			Order.destroy({
 				where: { id: req.query.id }
 			}).then( () => {
 				Order.findAll({
-					where: { userbuyerId: buyer.dataValues.id}
+					where: { buyerId: buyer.dataValues.id}
 				}).then( orders => {
 					res.send({
 						user: req.session.user,

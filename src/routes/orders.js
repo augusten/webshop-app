@@ -68,7 +68,12 @@ router.get( '/addtocart', ( req, res ) => {
 					quantity: req.query.quantity,
 					paid: req.query.paid
 				}).then( order => {
-					res.send( order )
+					Buyer.findOne({ 
+						where: {id: req.session.user.id}
+					}).then( buyer => {
+						order.setBuyer( buyer )
+						res.send( order )
+					})
 				})
 			})
 		}
