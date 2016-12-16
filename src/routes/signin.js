@@ -38,59 +38,11 @@ let Seller = models.Seller( db )
 let Order = models.Order( db )
 let Product = models.Product( db )
 let Specifics = models.Specifics( db )
-models.Connections( Buyer, Seller, Order, Product )
-
-// sync database
-db.sync( {force: true} )
-.then( db => {
-	console.log( 'now synced' )
-
-	// Create demo users
-	bcrypt.hash( 'aaaaaaaa', 8, ( err, hash ) => {
-		if (err) throw err
-			Buyer.create( {
-				user_ID: '1111',
-				name: "Name",
-				email: "email@original.nl",
-				password: hash
-			} )
-		.then( buyer => {
-			buyer.createOrder( {
-				order_ID: '1234678',
-				order: {
-					red :"#f00",
-					"green":"#0f0",
-					"blue":"#00f",
-					"cyan":"#0ff",
-					"magenta":"#f0f",
-					"yellow":"#ff0",
-					"black":"#000"
-				},
-				user_ID: '1234',
-				paid: 'no'
-			})
-		})
-	})
-	bcrypt.hash( '12345678', 8, ( err, hash ) => {
-		if (err) throw err
-			Seller.create( {
-				company_ID: "12345678",
-				company_name: "Sarvas",
-				email: "sarvas@yo.lt",
-				phone: "12345678",
-				address: "ateities g",
-				password: hash
-			} )
-	})
-})
+let ProductSpecs = models.Productspecs( db )
+models.Connections( Buyer, Seller, Order, Product, ProductSpecs )
 
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- GET ROUTES ------------------------------
-
-// test route
-router.get('/ping', ( req, res ) => {
-	res.send( 'pong' )
-})
 
 // route to index page
 router.get('/', ( req, res ) => {
@@ -104,13 +56,22 @@ router.get('/register', ( req, res ) => {
 	res.render( 'register' )
 })
 
+router.get('/logout', (req, res) => {
+	req.session.destroy( error => {
+		if (error) {
+			throw error;
+		}
+		res.redirect('/?message=' + encodeURIComponent("logged out"))
+	})
+})
+
 /////////////////////////////////////////////////////////////////////////
 //----------------------------- POST ROUTES ------------------------------
 
 router.post( '/login', bodyParser.urlencoded({extended: true}), ( req,res ) => {
 	if ( (req.body.email === undefined || req.body.password === undefined ) && ( req.body.companyEmail === undefined || req.body.companyPassword === undefined ) )  {
 		// check if valid login information
-		res.redirect( '/message=' + encodeURIComponent( 'forgot to type in password or email' ))
+		res.redirect( '/?message=' + encodeURIComponent( 'forgot to type in password or email' ))
 	} else {
 		if ( req.body.email && req.body.password ) {
 			// login as buyer
@@ -175,12 +136,14 @@ router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) 
 						bcrypt.hash(req.body.password, 8, ( err, hash ) => {
 							if (err) throw err
 								Buyer.create( {
+									// create unique ID from numbers -> grab the previous row (id-1) and their unique ID
 									firstname: req.body.firstname,
 									lastname: req.body.lastname,
 									email: req.body.email,
 									phone: req.body.phone,
 									address: req.body.address,
 									password: hash
+									// role: "user"
 								} )
 							res.redirect( '/' )
 						})
@@ -209,6 +172,7 @@ router.post( '/register', bodyParser.urlencoded({extended: true}), ( req, res ) 
 									phone: req.body.companyPhone,
 									address: req.body.companyAddress,
 									password: hash
+									// role: "admin"
 								} )
 							res.redirect( '/' )
 						})						

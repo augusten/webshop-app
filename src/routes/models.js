@@ -18,63 +18,73 @@ let db = () => {
 }
 
 // Define the models of the database
-let user_buyer = ( db ) => {
-	return db.define( 'user_buyer', {
-		user_ID: {type: Sequelize.STRING, unique: true},
+let buyer = ( db ) => {
+	return db.define( 'buyer', {
+		// buyer_ID: {type: Sequelize.STRING, unique: true},
 		firstname: {type: Sequelize.STRING, unique: true},
 		lastname: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
 		address: Sequelize.STRING,
 		password: Sequelize.STRING
+		// role: Sequelize.STRING
 	})
 }
 
-let user_seller = ( db ) => {
-	return db.define( 'user_seller', {
-		company_ID: {type: Sequelize.STRING, unique: true},
+let seller = ( db ) => {
+	return db.define( 'seller', {
+		// company_ID: {type: Sequelize.STRING, unique: true},
 		company_name: {type: Sequelize.STRING, unique: true},
 		email: {type: Sequelize.STRING, unique: true},
 		phone: {type: Sequelize.STRING, unique: true},
 		address: Sequelize.STRING,
 		password: Sequelize.STRING
+		// role: Sequelize.STRING
 	})
 }
 
 let order = ( db ) => {
 	return db.define( 'order', {
-		order_ID: {type: Sequelize.STRING, unique: true},
+		// order_ID: {type: Sequelize.STRING, unique: true},
 		order: Sequelize.JSON,
-		user_ID: Sequelize.STRING,
+		// user_ID: Sequelize.STRING,
+		quantity: Sequelize.STRING,
 		paid: Sequelize.STRING
 	})
 }
 
 let product = ( db ) => {
 	return db.define( 'product', {
-		product_ID: {type: Sequelize.STRING, unique: true},
-		name: Sequelize.STRING,
-		company_ID: Sequelize.STRING,
-		company_name: Sequelize.STRING,
-		specifics: Sequelize.JSON
+		price: Sequelize.FLOAT,
+		name: Sequelize.STRING
+	})
+}
+
+let product_specs = ( db ) => {
+	return db.define( 'productspec', {
+		colors: Sequelize.ARRAY(Sequelize.STRING),
+		materials: Sequelize.ARRAY(Sequelize.STRING)
 	})
 }
 
 let specifics = ( db ) => {
-	return db.define( 'specifics', {
+	return db.define( 'specific', {
 		feature: Sequelize.STRING,
 		possibilities: Sequelize.ARRAY(Sequelize.STRING)
 	})
 }
 
 // Add the connections between models
-let connections = ( buyer, seller, order, product ) => {
+let connections = ( buyer, seller, order, product, specs ) => {
 	buyer.hasMany( order )
 	seller.hasMany( order )
 	seller.hasMany( product )
 	order.belongsTo( buyer )
 	order.belongsTo( seller )
 	product.belongsTo( seller )
+	specs.belongsTo( product )
+	product.hasOne( specs )
+	// product.hasMany( specs )
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -82,10 +92,11 @@ let connections = ( buyer, seller, order, product ) => {
 
 module.exports = {
 	DB: db,
-	Buyer: user_buyer,
-	Seller: user_seller,
+	Buyer: buyer,
+	Seller: seller,
 	Order: order,
 	Product: product,
 	Specifics: specifics, 
+	Productspecs: product_specs,
 	Connections: connections
 }

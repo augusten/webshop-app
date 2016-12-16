@@ -1,57 +1,18 @@
-html
-	header
-		link(href="/css/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet")
-		link(href="/css/main.css" type="text/css" rel="stylesheet")
-	body
-		#loginBox.container
+include incl/header.pug
+body
+	include incl/navbar.pug
+	.block(style='height: 600px;')
+		.centered
+			h1#title osom shop
+			h3#smallertitle Because reasons
+			
+
+		if user
 			.row
-				.col-md-12
-					.tabbable-panel
-						.tabbable-line
-							ul.nav.nav-tabs
-								li.active
-									a(href='#tab_default_1', data-toggle='tab')
-										| Log in as buyer
-								li
-									a(href='#tab_default_2', data-toggle='tab')
-										| Log in as seller
-							.tab-content
-								#tab_default_1.tab-pane.active
-									form( action='login' method='post')
-										div
-											h3 Let's buy!
-												br
-												div
-													label Email
-														input( name='email' type='email' required)
-												div
-													label Password
-														input( name='password' type='password' required)
-												div
-													input( type='submit' value='Log me in')
-											div
-												p
-													| Don't have an account yet?
-													a(href='/register')  Register
-													|  to buy!
-								#tab_default_2.tab-pane
-									form( action='login' method='post')
-										div
-											h3 Let's sell!
-												br
-												div
-													label Company email
-														input( name='companyEmail' type='email' required)
-												div
-													label Password
-														input( name='companyPassword' type='password' required)
-												div
-													input( type='submit' value='Log me in')
-											div
-												p
-													| Don't have an account yet?
-													a(href='/register')  Register
-													|  to sell!
-	script( src="/js/jquery-3.1.1.min.js")
-	script( src="/css/bootstrap/js/bootstrap.min.js")
-	script( src="./js/scripts/frontend.js")
+				center
+					a.btn.btn-info.btn-lg(href='/goprofile')
+						span.glyphicon.glyphicon-shopping-cart
+						|  Shopping Cart
+script( src="/js/jquery-3.1.1.min.js")
+script( src="/css/bootstrap/js/bootstrap.min.js")
+script( src="./js/scripts/frontend.js")

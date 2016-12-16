@@ -1,0 +1,20 @@
+include incl/header.pug
+body
+	include incl/navbar.pug
+	.container
+	.block(style='height: 600px;')
+		.centered
+			h3#smallertitle Thank you for shopping with us!
+		.row
+			
+			.col-md-6
+				form( action='/goprofile' type='get' )
+					center
+						input.btn#prof( type='submit' value='Go to my orders' )
+			.col-md-6
+				form( action='/products' type='get' )
+					center
+						input.btn#prods( type='submit' value="Continue shopping" )
+	script( src="/js/jquery-3.1.1.min.js")
+	script( src="/css/bootstrap/js/bootstrap.min.js")
+	script( src="./js/scripts/frontend.js")
